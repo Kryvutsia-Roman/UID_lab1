@@ -6,16 +6,44 @@
         xmlns:local="clr-namespace:Lab1_2"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Window.Resources>
-        <Color x:Key="SolidColorBrushColor1">#FFDDDDDD</Color>
-    </Window.Resources>
+
     <Grid>
         <Grid.Background>
             <ImageBrush ImageSource="/Книга.jpg"/>
         </Grid.Background>
-        <Label Content="Яку останню книгу ти прочитав?" HorizontalAlignment="Center" Margin="0,59,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.262,-0.645" Height="30" Width="294" FontFamily="Times New Roman" FontSize="20" Background="White"/>
-        <TextBox Name="textBox1" HorizontalAlignment="Center" Margin="0,183,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="294" FontFamily="Times New Roman" FontSize="20" />
-        <Button Content="Тиць" HorizontalAlignment="Center" Margin="0,291,0,0" VerticalAlignment="Top" Height="62" Width="224" FontFamily="Times New Roman" FontSize="20" Background="White" Click="Button_Click">
+
+        <Label x:Name="QuestionLabel"
+               Content="Яку останню книгу ви читали?"
+               HorizontalAlignment="Center"
+               Margin="0,59,0,0"
+               VerticalAlignment="Top"
+               Height="30"
+               Width="500"
+               FontFamily="Times New Roman"
+               FontSize="20"
+               Background="White"/>
+
+        <TextBox x:Name="AnswersBox"
+                 HorizontalAlignment="Center"
+                 Margin="0,183,0,0"
+                 TextWrapping="Wrap"
+                 VerticalAlignment="Top"
+                 Width="294"
+                 FontFamily="Times New Roman"
+                 FontSize="20" />
+
+        <Button x:Name="SaveAnswerButton"
+                Content="Тиць"
+                HorizontalAlignment="Center"
+                Margin="0,291,0,0"
+                VerticalAlignment="Top"
+                Height="62"
+                Width="224"
+                FontFamily="Times New Roman"
+                FontSize="20"
+                Background="White"
+                Click="SaveAnswerButton_Click">
+
             <Button.BorderBrush>
                 <SolidColorBrush Color="Transparent"/>
             </Button.BorderBrush>

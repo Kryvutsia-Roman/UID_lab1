@@ -13,16 +13,28 @@ namespace Lab1_1
 {
     public partial class Form1 : Form
     {
+        private string[] questions =
+        {
+            "Яку останню книгу ви читали?",
+            "Якого жанру вона була?",
+            "Хто її автор?",
+            "Чи прочитав би ти її ще раз?",
+            "Чи порадиш ти прочитати її ще комусь?"
+        };
+
+        private int currentQuestion = 0;
+
         public Form1()
         {
             InitializeComponent();
+            QuestionLabel.Text = questions[currentQuestion];
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void SaveAnswerButton_Click(object sender, EventArgs e)
         {
-            string answer = textBox1.Text;
+            string answer = AnswersBox.Text;
 
-            if (answer == "")
+            if (string.IsNullOrWhiteSpace(answer))
             {
                 MessageBox.Show("Введіть відповідь!");
                 return;
@@ -30,11 +42,24 @@ namespace Lab1_1
 
             string path = "answers.txt";
 
-            File.AppendAllText(path, answer + Environment.NewLine);
+            // Записуємо питання + відповідь
+            File.AppendAllText(path,
+                questions[currentQuestion] + " " + answer + Environment.NewLine);
 
-            MessageBox.Show("Відповідь збережено!");
+            AnswersBox.Clear();
 
-            textBox1.Clear();
+            currentQuestion++;
+
+            if (currentQuestion < questions.Length)
+            {
+                QuestionLabel.Text = questions[currentQuestion];
+            }
+            else
+            {
+                MessageBox.Show("Опитування завершено!");
+                SaveAnswerButton.Enabled = false;
+                QuestionLabel.Text = "Дякуємо за участь!";
+            }
         }
     }
 }

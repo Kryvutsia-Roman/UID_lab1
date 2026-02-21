@@ -1,37 +1,33 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.IO;
-using System.Windows;
 
 namespace Lab1_2
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
+        private string[] questions =
+        {
+            "Яку останню книгу ви читали?",
+            "Якого жанру вона була?",
+            "Хто її автор?",
+            "Чи прочитав би ти її ще раз?",
+            "Чи порадиш ти прочитати її ще комусь?"
+        };
+
+        private int currentQuestion = 0;
+
         public MainWindow()
         {
             InitializeComponent();
+            QuestionLabel.Content = questions[currentQuestion];
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void SaveAnswerButton_Click(object sender, RoutedEventArgs e)
         {
-            string answer = textBox1.Text;
+            string answer = AnswersBox.Text;
 
-            if (answer == "")
+            if (string.IsNullOrWhiteSpace(answer))
             {
                 MessageBox.Show("Введіть відповідь!");
                 return;
@@ -39,11 +35,23 @@ namespace Lab1_2
 
             string path = "answers.txt";
 
-            File.AppendAllText(path, answer + Environment.NewLine);
+            File.AppendAllText(path,
+                questions[currentQuestion] + " " + answer + Environment.NewLine);
 
-            MessageBox.Show("Відповідь збережено!");
+            AnswersBox.Clear();
 
-            textBox1.Clear();
+            currentQuestion++;
+
+            if (currentQuestion < questions.Length)
+            {
+                QuestionLabel.Content = questions[currentQuestion];
+            }
+            else
+            {
+                MessageBox.Show("Опитування завершено!");
+                SaveAnswerButton.IsEnabled = false;
+                QuestionLabel.Content = "Дякуємо за участь!";
+            }
         }
     }
 }
